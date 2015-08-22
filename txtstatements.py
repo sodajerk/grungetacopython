@@ -1,21 +1,22 @@
-def kitchen_texts(textName, triedSafe=False, choice=None):
-    # default text for option 2 in the dynamic intro
-    option2 = """2. Head south out the back door and forget about all the blood 
+#text strings for kitchen
+
+#kitchen dynamic intro text strings    
+# default text for option 2 in the dynamic intro
+defaultOption2 = """2. Head south out the back door and forget about all the blood 
 and guts. Forget about the money in the safe. Just quietly leave out the back 
 door, jump on your mountain bike, and ride home to your apartment through the 
 trail in the woods behind Grunge Taco."""
 
-    # default text for option 3 in the dynamic intro
-    option3 = """3. Try to open the safe by guessing the last number of the 4 
+# default text for option 3 in the dynamic intro
+defaultOption3 = """3. Try to open the safe by guessing the last number of the 4 
 digit pin code and get rich quick after stealing all that Grunge Taco money. 
 With all the blood, hostages, and deep fried severed hands, no one is going to 
 suspect that you stole the money out of the safe. They will just add an 
 additional theft charge to whoever destroyed the place while you were sleeping.
 """
 
-    # if-elif conditionals for the dynamic intro options 
-    if "money" not in inventory and not triedSafe :
-        introText = """You enter the Grunge Taco kitchen. There's blood 
+# if "money" not in inventory and not triedSafe :
+defaultIntroText = """You enter the Grunge Taco kitchen. There's blood 
 splattered everywhere. There's blood in the sour cream station, blood on the 
 Grunge Taco take-out bags, and there appears to be a severed human hand in the 
 deep fryer basket. 
@@ -31,24 +32,29 @@ who has full access to the safe. But Phil has a habit of thinking out loud.
 You've heard him mumbling the 4 digit pin number but you are only sure of the 
 first three numbers. 1 3 8. You were never able to make out the last number."""
 
-    elif "money" not in inventory and triedSafe:
-        introText = """You are still in the Grunge Taco kitchen."""
+#  elif "money" not in inventory and triedSafe:
+safeNoMonIntroText = """You are still in the Grunge Taco kitchen."""
 
-        option3 = "3. Try to open the safe again" + option3[23:] 
+safeNoMonOption3 = "3. Try to open the safe again" + defaultOption3[23:] 
 
-    elif "money" in inventory:
+#elif "money" in inventory:
     
-        introText = """You are still in the Grunge Taco kitchen. But now you are
+moneyIntroText = """You are still in the Grunge Taco kitchen. But now you are
 rich!"""
 
-        option2 = option2[:-1] + " and spend the rest of the night counting all\
+moneyOption2 = defaultOption2[:74] + defaultOption2[110:-1] + " and spend the rest of the night counting all\
  your money!"
 
-        option3 = ""
+moneyOption3 = ""
 
-    # outline for dynamic intro text
+# array for dynamic intro text options
+dynamTxtArr = [defaultIntroText, defaultOption2, defaultOption3,
+               safeNoMonIntroText, safeNoMonOption3, moneyIntroText,
+               moneyOption2, moneyOption3]
 
-    theDynamicIntro = """%s
+# outline for dynamic intro text
+
+kitchDynamicIntro = """%s
 
 You need to decide your next move. You only have a few options:
 
@@ -61,9 +67,9 @@ chill out rather than punch out and go home.
 
 %s
 
-    """ % (introText, option2, option3)
+    """ 
 
-    theLobbyDeath = """You exit the kitchen and head back into the lobby. You
+kitchLobbyDeath = """You exit the kitchen and head back into the lobby. You
 start walking towards the soda machine. A nice orange soda would taste really
 good right about now. You notice that Ray-Ray and Deshaun are no where to be
 seen. They must have untied themselves while you were in the kitchen. You decide
@@ -91,7 +97,7 @@ outcry must have been enough to set off the itchy trigger fingers of the
 S.W.A.T. Team. You are shot about fifty times and you and your orange soda both
 die instantly."""
 
-    theWinningText = """You open the back door and head into the alley. You secure 
+kitchWinningText = """You open the back door and head into the alley. You secure 
 the trash bag full of cash to the rear rack of your mountain bike with some bungee 
 cords. Today must be your lucky day you think to yourself. You avoided getting 
 slaughtered and you are now the proud owner of a giant bag full of cash. 
@@ -100,7 +106,7 @@ You jump on your bike, wave goodbye to Grunge Taco, and ride home through the
 trail in the woods to your apartment. You and your bag of money live happily 
 ever after. THE END."""
 
-    theBearDeath = """You open the back door and head into the alley. Today must 
+kitchBearDeath = """You open the back door and head into the alley. Today must 
 be your lucky day you think to yourself. You avoided getting slaughtered 
 and you even had a nice nap. 
 
@@ -113,36 +119,23 @@ around and ride back Grunge Taco but the bear is too fast for you and easily
 plucks you off of your bike and slams your body repeatly on the ground like a 
 ragdoll until you die."""
 
-    theSafeIsOpen = """You guessed the correct combination! You open up the safe and take
+kitchSafeIsOpen = """You guessed the correct combination! You open up the safe and take
 out all of the money. This is the most cash you've ever seen in your life! You 
 place the money in a trashbag and sling it over your shoulder. It's a shame 
 that your co-workers got mysteriously slaughtered. You feel slightly bad about it
 but then you think about all that cold hard cash and you feel less bad. You're 
 rich now!\n"""
 
-    theDefaultDeath = "you %s and it kills you" % choice
-
-    # if-elif conditionals to determine which text string is returned. 
-    if textName == 1:
-        return theDynamicIntro
-    elif textName == 2:
-        return theLobbyDeath
-    elif textName == 3:
-        return theWinningText
-    elif textName == 4:
-        return theBearDeath
-    elif textName == 5:
-        return theSafeIsOpen
-    elif textName == 6:
-        return theDefaultDeath
-    else: 
-        print "An error has occured in kitchen_texts()"
-        exit(0)
+kitchDefaultDeath = "you %s and it kills you"
 
 
-def lobby_texts(textName, choice=None):
-    # Text strings for lobby_room
-    theIntroText = """You exit the restroom and enter the main lobby area of Grunge 
+# Array for kitchen text strings
+kitchenTxtArr = [kitchDynamicIntro, kitchLobbyDeath, kitchWinningText,
+                 kitchBearDeath, kitchSafeIsOpen, kitchDefaultDeath]
+
+# Text strings for lobby_room
+
+lobbyIntroText = """You exit the restroom and enter the main lobby area of Grunge 
 Taco. Someone has blacked out all the windows with industrial strength garbage 
 bags and duct tape. With this new set-up, you can't see out, and no one can see
 in. 
@@ -171,7 +164,7 @@ and help you save the day.
 """
 
 
-    theRestroomDeath = """You decide that this situation is way out of the 
+lobbyRestroomDeath = """You decide that this situation is way out of the 
 realm of your job discription and pay grade. You go back into the restroom to 
 hide in the handicapped stall and sleep. 
 
@@ -187,7 +180,7 @@ the ceiling breaks open and a large fat man, wearing a nothing but a Hawaiian
 Lei and grass skirt, falls on top of you killing you instantly."""
 
 
-    theOutsideDeath = """You decide you've had enough of Grunge Taco. 
+lobbyOutsideDeath = """You decide you've had enough of Grunge Taco. 
 
 "I Quit!" you yell out loud to no one in particular. 
 
@@ -209,7 +202,7 @@ But you only are able to utter the syllable "Wha..." before you are shot to
 death about 50 times."""
 
  
-    theUntieDeath = """You decide to help Ray-Ray and Deshaun. Hopefully they 
+lobbyUntieDeath = """You decide to help Ray-Ray and Deshaun. Hopefully they 
 will be able to explain what happened while you were sleeping in the restroom.
 You quickly untie both of them and remove their blindfolds. 
 
@@ -249,34 +242,20 @@ Death by drowning.
 Death by Orange Soda."""
 
 
-    theDefaultDeath = """You decide to %s. You've always been good at 
+lobbyDefaultDeath = """You decide to %s. You've always been good at 
 %s-ing. So you just %s over and over. Suddenly you feel a 
 sharp shooting pain in your abdomin. You must have %s-ed too hard 
 this time. You double over in excruciating pain. You then die on the floor
 of the Grunge Taco lobby. 
 
 Next time, if there is a next time, you might want to only %s in moderation.
-""" % (choice, choice, choice, choice, choice)
+""" 
+# lobby text array
+lobbyTxtArr = [lobbyIntroText, lobbyRestroomDeath, lobbyOutsideDeath,\
+               lobbyUntieDeath, lobbyDefaultDeath]
 
-    # if-elif conditionals to determing which text string to return
-    if textName == 1:
-        return theIntroText
-    elif textName == 2: 
-        return theRestroomDeath
-    elif textName == 3:
-        return theOutsideDeath
-    elif textName == 4:
-        return theUntieDeath
-    elif textName == 5:
-        return theDefaultDeath
-    else:
-        print "An error has occured in lobby_texts()"
-        exit(0)
-
-def start_texts(textName, choice=None):
-
-    # text strings for start room
-    theIntroText = """You wake up in the handicapped restroom stall of Grunge 
+# text statements for start room
+startIntroText = """You wake up in the handicapped restroom stall of Grunge 
 Taco. Grunge Taco is a 1990's themed fast food restaurant chain. You work 
 here as the assistant manager. This large handicapped stall is a perfect hiding 
 place to avoid work and to take naps. You've taken many naps in this stall. 
@@ -298,7 +277,7 @@ Burrito you ate for lunch.
 your co-workers will be there and will be able to explain why the restroom is 
 covered in blood."""
 
-    theStallDeath = """You decide the best course of action in this situation is 
+startStallDeath = """You decide the best course of action in this situation is 
 no action at all. You retreat back to your bathroom stall hideaway. You lay
 down on the floor of the stall and close your eyes. This is all just a bad 
 dream. When you wake up everything will be back to normal. You start to doze 
@@ -311,7 +290,7 @@ Whatever happened killed you so at this point the fact that you are dead is
 preventing you from doing any indepth analysis or further investigation of the 
 matter."""
 
-    theClosetDeath = """Action movies have taught you that if you ever find
+startClosetDeath = """Action movies have taught you that if you ever find
 yourself in a crazy situation, like waking up in a blood-splattered fast food 
 restroom, the first thing you should do is arm yourself with some kind of
 ridiculous handmade weapon fashioned from random objects in your immediate
@@ -334,22 +313,11 @@ in excrutiating pain you manage to utter the word \"WHY??\".
 Traynesha says nothing and then stabs you a second time, this time in the jugular. 
 You quickly bleed to death and die."""
 
-    theDefaultDeath = """You try to %s and that seems to be the right choice. You
+startDefaultDeath = """You try to %s and that seems to be the right choice. You
 just keep %s-ing and %s-ing. You never realized how wonderful %s-ing could be. 
 But then suddenly you develop a deadly allergy to %s. You try to scream but your
 throat closes up. You try to dial 911 but your phone battery is dead from all
-the %s-ing you were doing. You soon die from acute %s poisoning.""" % \
-(choice,choice,choice,choice,choice,choice,choice)
+the %s-ing you were doing. You soon die from acute %s poisoning.""" 
 
-    # determine which text string to return w/ if-elif conditionals
-    if textName == 1:
-        return theIntroText
-    elif textName == 2:
-        return theStallDeath
-    elif textName == 3:
-        return theClosetDeath
-    elif textName == 4:
-        return theDefaultDeath
-    else:
-        print "An error has occured in start_texts"
-        exit(0)
+# array for start room texts
+startTxtArr = [startIntroText, startStallDeath, startClosetDeath, startDefaultDeath]
