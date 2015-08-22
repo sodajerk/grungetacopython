@@ -3,7 +3,7 @@ from txtstatements import *
 
 def safeCrack():
     lastDigit = str(randint(0,9))
-    print "this is last digit: %s for testing purposes" % lastDigit
+    # print "this is last digit: %s for testing purposes" % lastDigit
     safeCode = raw_input("Enter the 4 digit code to open the safe: ")
     if safeCode == "138" + lastDigit:
         return True
